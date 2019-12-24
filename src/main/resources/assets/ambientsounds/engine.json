@@ -5,6 +5,9 @@
       "id": -1,
       "rain": false,
       "storm": false,
+      "biome-selector": {
+        "always": false
+      },
       "regions": [
         {
           "name": "nether",
@@ -12,7 +15,7 @@
             {
               "name": "nether",
               "files": [ "ambientsounds:suspense.nether" ],
-              "volume": 0.5
+              "volume": 0.2
             }
           ]
         }
@@ -124,6 +127,34 @@
       }
     },
     {
+      "name": "galacticraft",
+      "dimension-names": [ "moon", "space", "asteroids" ],
+      "disable-all": true,
+      "biome-selector": {
+        "always": false
+      }
+    },
+    {
+      "name": "galacticraft.planets",
+      "dimension-names": [ "mars", "venus" ],
+      "biome-selector": {
+        "always": false
+      },
+      "regions": [
+        {
+          "name": "planet-wind",
+          "volume": 0.3,
+          "bad-regions": [ "cave-ambience" ],
+          "sounds": [
+            {
+              "name": "wind",
+              "files": [ "ambientsounds:wind.wind" ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "surface",
       "biome-selector": {
         "regions": [ "surface" ]
@@ -223,8 +254,12 @@
     {
       "name": "cave-ambience",
       "regions": [ "cave" ],
+      "min-height-relative": {
+        "max": -2,
+        "fade": 2
+      },
       "light": {
-        "max": 12,
+        "max": 8,
         "fade": 2
       },
       "blocks": {

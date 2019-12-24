@@ -38,6 +38,10 @@ public class AmbientCondition extends AmbientSoundProperties {
 	public AmbientMinMaxFadeCondition relativeHeight;
 	@SerializedName(value = "absolute-height")
 	public AmbientMinMaxFadeCondition absoluteHeight;
+	@SerializedName(value = "min-height-relative")
+	public AmbientMinMaxFadeCondition minHeightRelative;
+	@SerializedName(value = "max-height-relative")
+	public AmbientMinMaxFadeCondition maxHeightRelative;
 	
 	public AmbientMinMaxFadeCondition light;
 	
@@ -98,6 +102,9 @@ public class AmbientCondition extends AmbientSoundProperties {
 	}
 	
 	public AmbientSelection value(AmbientEnviroment env) {
+		
+		if (env.soundsDisabled)
+			return null;
 		
 		if (always != null)
 			return always ? new AmbientSelection(this) : null;
@@ -188,6 +195,22 @@ public class AmbientCondition extends AmbientSoundProperties {
 		
 		if (relativeHeight != null) {
 			double volume = relativeHeight.volume(env.relativeHeight);
+			if (volume <= 0)
+				return null;
+			
+			selection.volume *= volume;
+		}
+		
+		if (minHeightRelative != null) {
+			double volume = minHeightRelative.volume(env.player.posY - env.minHeight);
+			if (volume <= 0)
+				return null;
+			
+			selection.volume *= volume;
+		}
+		
+		if (maxHeightRelative != null) {
+			double volume = maxHeightRelative.volume(env.player.posY - env.maxHeight);
 			if (volume <= 0)
 				return null;
 			
